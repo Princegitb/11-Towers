@@ -191,6 +191,8 @@ export default function AdminImageManager() {
   )
 }
 
+import { getMediaUrl } from '../../utils/api'
+
 function AssetCard({ img, onDelete }) {
   const [deleting, setDeleting] = useState(false)
 
@@ -203,7 +205,7 @@ function AssetCard({ img, onDelete }) {
       className="group relative rounded-2xl overflow-hidden glass-card border-white/10 aspect-square"
     >
       <img 
-        src={`http://localhost:5000${img.url}`} 
+        src={getMediaUrl(img.url)} 
         alt={img.title} 
         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
       />

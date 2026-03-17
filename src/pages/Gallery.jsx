@@ -88,6 +88,8 @@ export default function Gallery() {
   )
 }
 
+import { getMediaUrl } from '../utils/api'
+
 function ImageCard({ image }) {
   return (
     <motion.div
@@ -101,7 +103,7 @@ function ImageCard({ image }) {
       }`}
     >
       <img 
-        src={`http://localhost:5000${image.url}`} 
+        src={getMediaUrl(image.url)} 
         alt={image.title}
         className="w-full min-h-[250px] h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[20%] group-hover:grayscale-0"
       />

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useLocation, useNavigate, Link } from 'react-router-dom'
 import { User, Shield, Lock, Mail, ArrowRight, Building2 } from 'lucide-react'
 import GlassCard from '../components/GlassCard'
-import axios from 'axios'
+import api from '../utils/api'
 import useStore from '../store/useStore'
 import toast from 'react-hot-toast'
 
@@ -25,7 +25,7 @@ export default function Login() {
     setLoading(true);
     
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      const response = await api.post('/api/auth/login', {
         email,
         password,
         role

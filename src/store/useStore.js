@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import axios from 'axios';
+import api from '../utils/api';
 import toast from 'react-hot-toast';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api';
 
 const DEFAULT_NOTICES = [
   { id: 1, title: 'Elevator Maintenance', date: new Date().toISOString(), content: 'Block A elevator 2 will be down for scheduled maintenance.', isHighPriority: true },
@@ -61,7 +61,7 @@ const useStore = create(
         try {
           const { token } = get();
           if(!token) return;
-          const res = await axios.get(`${API_URL}/complaints`, {
+          const res = await api.get(`${API_URL}/complaints`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           set({ complaints: res.data });
@@ -72,7 +72,7 @@ const useStore = create(
       addComplaint: async (complaintData) => {
         try {
           const { token, complaints } = get();
-          const res = await axios.post(`${API_URL}/complaints`, complaintData, {
+          const res = await api.post(`${API_URL}/complaints`, complaintData, {
             headers: { Authorization: `Bearer ${token}` }
           });
           set({ complaints: [res.data, ...complaints] });
@@ -85,7 +85,7 @@ const useStore = create(
       updateComplaintStatus: async (id, status) => {
         try {
           const { token, complaints } = get();
-          const res = await axios.put(`${API_URL}/complaints/${id}/status`, { status }, {
+          const res = await api.put(`${API_URL}/complaints/${id}/status`, { status }, {
             headers: { Authorization: `Bearer ${token}` }
           });
           set({
@@ -101,7 +101,7 @@ const useStore = create(
       images: [],
       fetchImages: async () => {
         try {
-          const res = await axios.get(`${API_URL}/images`);
+          const res = await api.get(`${API_URL}/images`);
           set({ images: res.data });
         } catch (error) {
           console.error("Failed to fetch images");
@@ -110,7 +110,7 @@ const useStore = create(
       uploadImageGalleryAdmin: async (formData) => {
         try {
           const { token, images } = get();
-          const res = await axios.post(`${API_URL}/images`, formData, {
+          const res = await api.post(`${API_URL}/images`, formData, {
             headers: { 
               Authorization: `Bearer ${token}`,
               'Content-Type': 'multipart/form-data'
@@ -127,7 +127,7 @@ const useStore = create(
       deleteImage: async (id) => {
         try {
           const { token, images } = get();
-          await axios.delete(`${API_URL}/images/${id}`, {
+          await api.delete(`${API_URL}/images/${id}`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           set({ images: images.filter(img => img._id !== id) });
