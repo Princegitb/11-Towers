@@ -112,8 +112,7 @@ const useStore = create(
           const { token, images } = get();
           const res = await api.post(`${API_URL}/images`, formData, {
             headers: { 
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'multipart/form-data'
+              Authorization: `Bearer ${token}`
             }
           });
           set({ images: [res.data, ...images] });
