@@ -9,6 +9,8 @@ import AdminDashboard from './pages/admin/Dashboard'
 import AdminImageManager from './pages/admin/ImageManager'
 import useStore from './store/useStore'
 
+import Footer from './components/Footer'
+
 function App() {
   const syncNotices = useStore(state => state.syncNotices);
 
@@ -32,17 +34,20 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen">
+      <div className="min-h-screen flex flex-col">
         <Toaster position="bottom-right" toastOptions={{ className: 'glass-card border-white/10 text-white font-bold bg-dark-bg', style: { borderRadius: '1rem', background: '#0a0a0a', color: '#fff', border: '1px solid rgba(255,255,255,0.1)' } }} />
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/resident-dashboard/*" element={<ResidentDashboard />} />
-          <Route path="/admin-dashboard/*" element={<AdminDashboard />} />
-          <Route path="/admin-dashboard/gallery" element={<AdminImageManager />} />
-          <Route path="*" element={<LandingPage />} />
-        </Routes>
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/resident-dashboard/*" element={<ResidentDashboard />} />
+            <Route path="/admin-dashboard/*" element={<AdminDashboard />} />
+            <Route path="/admin-dashboard/gallery" element={<AdminImageManager />} />
+            <Route path="*" element={<LandingPage />} />
+          </Routes>
+        </div>
+        <Footer />
       </div>
     </Router>
   )
