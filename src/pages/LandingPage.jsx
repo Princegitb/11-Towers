@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight, ShieldCheck, UserCheck, Smartphone, MapPin, Zap } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import GlassCard from '../components/GlassCard'
-import HeroTower from '../assets/hero-tower.png'
+import HeroTower from '../assets/society_image.png'
 import { Link } from 'react-router-dom'
 
 const floatingElements = [...Array(5)].map(() => ({
